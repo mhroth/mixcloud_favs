@@ -23,16 +23,23 @@ parser = argparse.ArgumentParser(
 parser.add_argument(
         "username",
         help="Your mixcloud username.")
+parser.add_argument(
+        "--out",
+        default="./mixcloud.html",
+        help="Output Path.")
 args = parser.parse_args()
 
-r = requests.get("https://api.mixcloud.com/{0}/favorites/?limit=100".format(args.username))
-r_json = r.json()
-fav_list = r_json["data"]
+# get mixcloud favourites
+r_json = requests.get("https://api.mixcloud.com/{0}/favorites/?limit=100".format(args.username)).json()
+fav_list_mc = r_json["data"]
 
 while "next" in r_json["paging"]:
-    r = requests.get(r_json["paging"]["next"])
-    r_json = r.json()
-    fav_list.extend(r_json["data"])
+    r_json = requests.get(r_json["paging"]["next"]).json()
+    fav_list_mc.extend(r_json["data"])
+
+# get soundcloud favourites
+r_json = requests.get("http://api.soundcloud.com/users/{0}/favorites?client_id=94c6f1416b187b88a9ffe11bbd2920f6".format(args.username)).json()
+fav_list_sc = r_json
 
 def filter_duration(duration_sec):
     d_min = int(int(duration_sec) / 60)
@@ -47,13 +54,20 @@ def filter_created_time(created_time_str):
     created_time = datetime.datetime.strptime(created_time_str, "%Y-%m-%dT%H:%M:%SZ")
     return "{0}.{1:02}".format(created_time.year, created_time.month)
 
+def filter_created_time_sc(created_time_str):
+    # 2017/11/08 19:27:35 +0000
+    created_time = datetime.datetime.strptime(created_time_str, "%Y/%m/%d %H:%M:%S +0000")
+    return "{0}.{1:02}".format(created_time.year, created_time.month)
+
 env = jinja2.Environment(loader=jinja2.FileSystemLoader('./'))
 env.filters['duration'] = filter_duration
 env.filters['created_time'] = filter_created_time
+env.filters['created_time_sc'] = filter_created_time_sc
 template = env.get_template('template.html')
 
-with open("./mixcloud.html", "w") as f:
+with open(args.out, "w") as f:
     f.write(template.render(
         username=args.username,
-        fav_list=fav_list,
+        fav_list_mc=fav_list_mc,
+        fav_list_sc=fav_list_sc,
         date_time=datetime.datetime.now()))
