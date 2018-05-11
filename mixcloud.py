@@ -50,18 +50,22 @@ def filter_duration(duration_sec):
         d_min = d_min % 60
         return "{0}h {1}m".format(d_hour, d_min)
 
-def filter_created_time(created_time_str):
+def filter_created_time_mc(created_time_str):
+    """ Parse the Mixcloud-format date string.
+    """
     created_time = datetime.datetime.strptime(created_time_str, "%Y-%m-%dT%H:%M:%SZ")
     return "{0}.{1:02}".format(created_time.year, created_time.month)
 
 def filter_created_time_sc(created_time_str):
-    # 2017/11/08 19:27:35 +0000
+    """ Parse the Soundcloud-format date string.
+        e.g. 2017/11/08 19:27:35 +0000
+    """
     created_time = datetime.datetime.strptime(created_time_str, "%Y/%m/%d %H:%M:%S +0000")
     return "{0}.{1:02}".format(created_time.year, created_time.month)
 
 env = jinja2.Environment(loader=jinja2.FileSystemLoader('./'))
 env.filters['duration'] = filter_duration
-env.filters['created_time'] = filter_created_time
+env.filters['created_time'] = filter_created_time_mc
 env.filters['created_time_sc'] = filter_created_time_sc
 template = env.get_template('template.html')
 
