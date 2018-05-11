@@ -8,6 +8,15 @@
     a:visited {color: #3399FF;}
     a:hover {color: #FF00FF;}
     a:active {color: #FF66FF;}
+
+    .indexNumber {
+      color:gray;
+      width:45px;
+      text-align:right;
+      margin-right:5px;
+      line-height:50px;
+      font-size:26px;
+    }
 </style>
 </head>
 <body style="font-family:'Avenir Next';">
@@ -16,6 +25,7 @@ generated on {{date_time.year}}.{{'%02i'|format(date_time.month)}}.{{'%02i'|form
 </div>
 {%- for fav in fav_list_mc %}
 <div style="margin-bottom:10px; display:flex;">
+    <div class="indexNumber">{{loop.index}}</div>
     <img src="{{fav.pictures.small}}" height="50" width="50" />
     <div style="width:70px; margin-left:5px; font-size:13px; margin-top:7px;">
         <div>&#x1F552; {{fav.get("audio_length", "0")|duration}}</div>
@@ -38,7 +48,8 @@ generated from <a href="https://www.soundcloud.com/{{username}}/likes/">soundclo
 </div>
 {%- for fav in fav_list_sc %}
 <div style="margin-bottom:10px; display:flex;">
-    <img src="{{fav.artwork_url}}" height="50" width="50" />
+    <div class="indexNumber">{{loop.index}}</div>
+    <img src="{{fav.artwork_url}}" height="50px" width="50px" />
     <div style="width:70px; margin-left:5px; font-size:13px; margin-top:7px;">
         <div>&#x1F552; {{(fav.duration/1000)|duration}}</div>
         <div>&#x1F4C5; {{fav.created_at|created_time_sc}}</div>
