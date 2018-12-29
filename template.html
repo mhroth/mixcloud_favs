@@ -44,48 +44,52 @@
 </style>
 </head>
 <body style="font-family:'Avenir Next';">
-<div style="font-size:24px; color:gray; margin-bottom:20px;">
+<div style="font-size:24px; color:gray; margin-bottom:20px; background-color:#ECECEC;">
 generated on {{date_time.year}}.{{'%02i'|format(date_time.month)}}.{{'%02i'|format(date_time.day)}} from <a href="https://www.mixcloud.com/">mixcloud</a> <a href="https://www.mixcloud.com/{{username}}/favorites/">favourites</a>
 </div>
 {%- for fav in fav_list_mc %}
-<div class="favBody">
-    <div class="indexNumber">{{loop.index}}</div>
-    <img src="{{fav.pictures.small}}" height="50" width="50" />
-    <div class="durationInfo">
-        <div>&#x1F552; {{fav.get("audio_length", "0")|duration}}</div>
-        <div>&#x1F4C5; {{fav.created_time|created_time}}</div>
-    </div>
-    <div class="urlInfo">
-        <div class="favName">
-            <a href="{{fav.url}}">{{fav.name}}</a>
-        </div>
-        <div>
-            <a href="{{fav.user.url}}">{{fav.user.name}}</a>
-        </div>
-    </div>
+<div style="display:block; float:left;">
+  <div class="favBody">
+      <div class="indexNumber">{{loop.index}}</div>
+      <img src="{{fav.pictures.small}}" height="50" width="50" />
+      <div class="durationInfo">
+          <div>&#x1F552; {{fav.get("audio_length", "0")|duration}}</div>
+          <div>&#x1F4C5; {{fav.created_time|created_time}}</div>
+      </div>
+      <div class="urlInfo">
+          <div class="favName">
+              <a href="{{fav.url}}">{{fav.name}}</a>
+          </div>
+          <div>
+              <a href="{{fav.user.url}}">{{fav.user.name}}</a>
+          </div>
+      </div>
+  </div>
 </div>
 {%- endfor %}
 <br/>
 <br/>
-<div style="font-size:24px; color:gray; margin-bottom:20px;">
+<div style="font-size:24px; color:gray; margin-bottom:20px; background-color:#ECECEC; clear:left;">
 generated from <a href="https://www.soundcloud.com/">soundcloud</a> <a href="https://www.soundcloud.com/{{username}}/likes/">favourites</a>
 </div>
 {%- for fav in fav_list_sc %}
-<div class="favBody">
-    <div class="indexNumber">{{loop.index}}</div>
-    <img src="{{fav.artwork_url}}" height="50px" width="50px" />
-    <div class="durationInfo">
-        <div>&#x1F552; {{(fav.duration/1000)|duration}}</div>
-        <div>&#x1F4C5; {{fav.created_at|created_time_sc}}</div>
-    </div>
-    <div class="urlInfo">
-        <div class="favName">
-            <a href="{{fav.permalink_url}}">{{fav.title}}</a>
-        </div>
-        <div>
-            <a href="{{fav.user.permalink_url}}">{{fav.user.username}}</a>
-        </div>
-    </div>
+<div style="display: block; float: left;">
+  <div class="favBody">
+      <div class="indexNumber">{{loop.index}}</div>
+      <img src="{{fav.artwork_url}}" height="50px" width="50px" />
+      <div class="durationInfo">
+          <div>&#x1F552; {{(fav.duration/1000)|duration}}</div>
+          <div>&#x1F4C5; {{fav.created_at|created_time_sc}}</div>
+      </div>
+      <div class="urlInfo">
+          <div class="favName">
+              <a href="{{fav.permalink_url}}">{{fav.title}}</a>
+          </div>
+          <div>
+              <a href="{{fav.user.permalink_url}}">{{fav.user.username}}</a>
+          </div>
+      </div>
+  </div>
 </div>
 {%- endfor %}
 </body>
