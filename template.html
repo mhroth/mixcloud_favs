@@ -45,7 +45,7 @@
 </head>
 <body style="font-family:'Avenir Next';">
 <div style="font-size:24px; color:gray; margin-bottom:20px; background-color:#ECECEC;">
-generated on {{date_time.year}}.{{'%02i'|format(date_time.month)}}.{{'%02i'|format(date_time.day)}} from <a href="https://www.mixcloud.com/">mixcloud</a> <a href="https://www.mixcloud.com/{{username}}/favorites/">favourites</a>
+generated on {{date_time.year}}.{{'%02i'|format(date_time.month)}}.{{'%02i'|format(date_time.day)}} from <a href="https://www.mixcloud.com/">mixcloud</a> <a href="https://www.mixcloud.com/{{username}}/favorites/">favourites</a> ({{fav_list_mc|length}})
 </div>
 {%- for fav in fav_list_mc %}
 <div style="display:block; float:left;">
@@ -70,7 +70,7 @@ generated on {{date_time.year}}.{{'%02i'|format(date_time.month)}}.{{'%02i'|form
 <br/>
 <br/>
 <div style="font-size:24px; color:gray; margin-bottom:20px; background-color:#ECECEC; clear:left;">
-generated from <a href="https://www.soundcloud.com/">soundcloud</a> <a href="https://www.soundcloud.com/{{username}}/likes/">favourites</a>
+generated from <a href="https://www.soundcloud.com/">soundcloud</a> <a href="https://www.soundcloud.com/{{username}}/likes/">favourites</a> ({{fav_list_sc|length}})
 </div>
 {%- for fav in fav_list_sc %}
 <div style="display: block; float: left;">
