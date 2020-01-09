@@ -1,4 +1,4 @@
-# Copyright 2018 Martin Roth (mhroth@gmail.com).
+# Copyright 2018-2020 Martin Roth (mhroth@gmail.com).
 #
 # Permission to use, copy, modify, and/or distribute this software for any
 # purpose with or without fee is hereby granted, provided that the above
@@ -38,8 +38,12 @@ while "next" in r_json["paging"]:
     fav_list_mc.extend(r_json["data"])
 
 # get soundcloud favourites
-r_json = requests.get("http://api.soundcloud.com/users/{0}/favorites?client_id=94c6f1416b187b88a9ffe11bbd2920f6".format(args.username)).json()
-fav_list_sc = r_json
+r_json = requests.get("http://api.soundcloud.com/users/{0}/favorites?client_id=94c6f1416b187b88a9ffe11bbd2920f6&linked_partitioning=1".format(args.username)).json()
+fav_list_sc = r_json["collection"]
+
+while "next_href" in r_json:
+    r_json = requests.get(r_json["next_href"]).json()
+    fav_list_sc.extend(r_json["collection"])
 
 def filter_duration(duration_sec):
     d_min = int(int(duration_sec) / 60)
