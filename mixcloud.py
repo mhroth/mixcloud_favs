@@ -38,11 +38,11 @@ while "next" in r_json["paging"]:
     fav_list_mc.extend(r_json["data"])
 
 # get soundcloud favourites
-r_json = requests.get("http://api.soundcloud.com/users/{0}/favorites?client_id=94c6f1416b187b88a9ffe11bbd2920f6&linked_partitioning=1".format(args.username)).json()
+r_json = requests.get("https://api.soundcloud.com/users/1809348/favorites?client_id=94c6f1416b187b88a9ffe11bbd2920f6&linked_partitioning=1").json()
 fav_list_sc = r_json["collection"]
 
 while "next_href" in r_json:
-    r_json = requests.get(r_json["next_href"]).json()
+    r_json = requests.get(r_json["next_href"] + "&client_id=94c6f1416b187b88a9ffe11bbd2920f6").json()
     fav_list_sc.extend(r_json["collection"])
 
 def filter_duration(duration_sec):
