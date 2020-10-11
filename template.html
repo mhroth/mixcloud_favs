@@ -3,6 +3,28 @@
 <meta charset="utf-8">
 <title>{{username}} Mixcloud Favourites</title>
 <style type="text/css">
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: black;
+      color: white;
+    }
+
+    .streamerBarColour {
+      background-color:#131313;
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    body {
+      background-color: white;
+      color: black;
+    }
+
+    .titleBarColour {
+      background-color:#ECECEC;
+    }
+  }
+
     a {text-decoration: none;}
     a:link {color: #CC66CC;}
     a:visited {color: #3399FF;}
@@ -41,10 +63,16 @@
       white-space: nowrap;
       margin-top: 2px;
     }
+
+    .titleBar {
+      font-size:24px;
+      color:gray;
+      margin-bottom:20px;
+    }
 </style>
 </head>
 <body style="font-family:'Avenir Next';">
-<div style="font-size:24px; color:gray; margin-bottom:20px; background-color:#ECECEC;">
+<div class="titleBar titleBarColour">
 generated on {{date_time.year}}.{{'%02i'|format(date_time.month)}}.{{'%02i'|format(date_time.day)}} from <a href="https://www.mixcloud.com/">mixcloud</a> <a href="https://www.mixcloud.com/{{username}}/favorites/">favourites</a> ({{fav_list_mc|length}})
 </div>
 {%- for fav in fav_list_mc %}
@@ -69,7 +97,7 @@ generated on {{date_time.year}}.{{'%02i'|format(date_time.month)}}.{{'%02i'|form
 {%- endfor %}
 <br/>
 <br/>
-<div style="font-size:24px; color:gray; margin-bottom:20px; background-color:#ECECEC; clear:left;">
+<div class="titleBar titleBarColour" style="clear:left;">
 generated from <a href="https://www.soundcloud.com/">soundcloud</a> <a href="https://www.soundcloud.com/{{username}}/likes/">favourites</a> ({{fav_list_sc|length}})
 </div>
 {%- for fav in fav_list_sc %}
