@@ -41,7 +41,7 @@ while "next" in r_json["paging"]:
 r_json = requests.get("https://api.soundcloud.com/users/1809348/favorites?client_id=94c6f1416b187b88a9ffe11bbd2920f6&linked_partitioning=1").json()
 fav_list_sc = r_json["collection"]
 
-while "next_href" in r_json:
+while "next_href" in r_json and r_json["next_href"] is not None:
     r_json = requests.get(r_json["next_href"] + "&client_id=94c6f1416b187b88a9ffe11bbd2920f6").json()
     fav_list_sc.extend(r_json["collection"])
 
